@@ -1,4 +1,5 @@
 const boom = require('@hapi/boom');
+const getConnection = require('../libs/mariadb');
 
 class UserService {
   constructor() {}
@@ -8,7 +9,9 @@ class UserService {
   }
 
   async find() {
-    return [];
+    const connection = await getConnection();
+    const [rows, fields] = await connection.query('SELECT * FROM tasks');
+    return rows;
   }
 
   async findOne(id) {
